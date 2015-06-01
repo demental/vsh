@@ -5,24 +5,21 @@ feature 'signing up' do
 
   scenario 'as an anonymous user, I can register the service filling up a form, and be logged in immediately' do
     visit '/'
-
     click_sign_up_link
     fill_sign_up_form_with user_credentials
 
-    expect(current_url).to eq user_path(User.last)
+    expect(current_path).to eq dashboard_path(User.last)
   end
 end
 
 feature 'signing in' do
-  let(:user) { create(:user, user_credentials) }
+  let!(:user) { create(:user, user_credentials.merge(password_confirmation: 'secr3tp4ssword')) }
 
   scenario 'as an already registered user, I can sign in an access my own page' do
     visit '/'
-
     click_sign_in_link
     fill_sign_in_form_with user_credentials
-
-    expect(current_url).to eq user_path(User.last)
+    expect(current_path).to eq dashboard_path(user)
   end
 end
 
@@ -41,7 +38,7 @@ def click_sign_in_link
 end
 
 def fill_sign_up_form_with credentials
-  within '#new_user_form' do
+  within '#new_user' do
     fill_in 'user[email]', with: credentials[:email]
     fill_in 'user[password]', with: credentials[:password]
     fill_in 'user[password_confirmation]', with: credentials[:password]
@@ -50,7 +47,7 @@ def fill_sign_up_form_with credentials
 end
 
 def fill_sign_in_form_with credentials
-  within '#new_session_form' do
+  within '#new_user' do
     fill_in 'user[email]', with: credentials[:email]
     fill_in 'user[password]', with: credentials[:password]
     find('input[type=submit]').click
