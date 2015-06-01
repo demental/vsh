@@ -1,6 +1,6 @@
-class CreateMediaItems < ActiveRecord::Migration
+class CreateMediaContainers < ActiveRecord::Migration
   def change
-    create_table :media_items do |t|
+    create_table :media_containers do |t|
       t.string :kind
       t.string :source
       t.references :user, index: true, foreign_key: true
