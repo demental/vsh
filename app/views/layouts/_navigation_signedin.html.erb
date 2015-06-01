@@ -1,0 +1,5 @@
+<ul>
+<li><%= link_to current_user.email, dashboard_path(current_user) %></li>
+<li>
+<%= link_to t('user.sign_out'), destroy_user_session_path, :method => :delete %></li>
+</ul>
