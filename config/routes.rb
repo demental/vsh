@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :media_items
   resources :dashboards
   devise_for :users
   get 'home/index'
