@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601081947) do
+ActiveRecord::Schema.define(version: 20150601083943) do
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer  "media_container_id"
+    t.string   "file"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "attachments", ["media_container_id"], name: "index_attachments_on_media_container_id"
 
   create_table "media_containers", force: :cascade do |t|
     t.string   "kind"
